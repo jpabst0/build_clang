@@ -5,11 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Set up system
-      run: echo "Set up system"
+      run: sudo apt-get --assume-yes install ninja-build
     - name: Checkout
       uses: actions/checkout@main
     - name: Configure
-      run: cmake -B ${{github.workspace}}/build
+      run: cmake -G Ninja -B ${{github.workspace}}/build
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config Release
     - name: Package
