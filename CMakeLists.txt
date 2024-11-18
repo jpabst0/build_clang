@@ -30,7 +30,7 @@ ExternalProject_Add(
 	CLANG
 	GIT_REPOSITORY https://github.com/llvm/llvm-project.git
 	#GIT_TAG b1234ddbe2652aa7948242a57107ca7ab12fd2f8
-	GIT_TAG llvmorg-19.1.3
+	GIT_TAG llvmorg-18.1.8
 	SOURCE_SUBDIR llvm
 	CMAKE_CACHE_ARGS
 		${COMMON_CMAKE_CACHE_ARGS}
