@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: Set up system
-      run: sudo apt-get --assume-yes install ninja-build gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf gcc-multilib clang
+      run: sudo apt-get --assume-yes install ninja-build gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf clang
     - name: Checkout
       uses: actions/checkout@main
     - name: Configure
