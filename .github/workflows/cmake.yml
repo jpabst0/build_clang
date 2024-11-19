@@ -2,10 +2,10 @@ name: Build
 on: [push, pull_request]
 jobs:
   Ubuntu_x86_64:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - name: Set up system
-      run: sudo apt-get --assume-yes install ninja-build
+      run: sudo apt-get --assume-yes install ninja-build gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
     - name: Checkout
       uses: actions/checkout@main
     - name: Configure
