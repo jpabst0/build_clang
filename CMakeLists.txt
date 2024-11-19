@@ -41,6 +41,9 @@ ExternalProject_Add(
 		-DLLVM_RUNTIME_TARGETS:STRING=arm-linux-gnueabihf
 		#-DLLVM_ENABLE_RUNTIMES:STRING=
 		-DLLVM_INSTALL_TOOLCHAIN_ONLY:BOOL=ON
+
+		-DCPACK_GENERATOR:STRING=TGZ
+		
 		#-DLIBCXXABI_USE_LLVM_UNWINDER:BOOL=ON
 		#-DDEFAULT_SYSROOT:PATH=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target
 		#-DDEFAULT_SYSROOT:PATH=
@@ -48,6 +51,19 @@ ExternalProject_Add(
 		#-DLIBCXX_CXX_ABI_INCLUDE_PATHS:PATHS=:~/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/lib/gcc/arm-gcc49-linux-gnueabihf/4.9.4
 		#-DLIBCXX_CXX_ABI_LIBRARY_PATH:PATH
 
+		#-DBOOTSTRAP_DEFAULT_SYSROOT:PATH=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target
+		#-DBOOTSTRAP_GCC_TOOLCHAIN:
+		#--gcc-toolchain=/path/to/install-dir
+		#--sysroot=/path/to/install-dir/<gcc-triple>/libc
+		#/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/lib/gcc/arm-gcc49-linux-gnueabihf/4.9.4
+		
+		#-DBOOTSTRAP_CMAKE_CXX_FLAGS:STRING=--sysroot=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target --gcc-toolchain=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain
+		#-DBOOTSTRAP_CMAKE_C_FLAGS:STRING=--sysroot=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target --gcc-toolchain=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain
+
+
+		#-DBOOTSTRAP_LIBUNWIND_ENABLE_SHARED:BOOL=OFF
+		#-DBOOTSTRAP_LIBCXXABI_ENABLE_SHARED:BOOL=OFF
+		#-DBOOTSTRAP_LIBCXX_ENABLE_SHARED:BOOL=OFF
 
 		#-DCLANG_ENABLE_BOOTSTRAP:BOOL=ON
 		#-DBOOTSTRAP_CMAKE_BUILD_TYPE:STRING=Release
