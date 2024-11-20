@@ -5,32 +5,17 @@ project(clang_superbuild LANGUAGES)
 include(ExternalProject)
 
 set(INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install)
-set(BOOTSTRAP_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install_hisi)
 
 set(COMMON_CMAKE_CACHE_ARGS
 	-DCMAKE_BUILD_TYPE:STRING=Release
 	-DCMAKE_INSTALL_PREFIX:PATH=${INSTALL_PREFIX}
 	-DCMAKE_LIBRARY_PATH:PATH=${INSTALL_PREFIX}/lib
-	#-DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
-	#"-DCMAKE_C_FLAGS:STRING=-O2 -fexceptions -funwind-tables"
-	#"-DCMAKE_CXX_FLAGS:STRING=-O2 -fexceptions -funwind-tables"
-	#-DCMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH:BOOL=OFF
-	#-DCMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH:BOOL=OFF
+	-DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
 )
-#[[
-ExternalProject_Add(
-	ZLIB
-	GIT_REPOSITORY https://github.com/madler/zlib.git
-	GIT_TAG v1.3.1
-	CMAKE_CACHE_ARGS
-		${COMMON_CMAKE_CACHE_ARGS}
-)
-#]]
 
 ExternalProject_Add(
 	CLANG
 	GIT_REPOSITORY https://github.com/llvm/llvm-project.git
-	#GIT_TAG b1234ddbe2652aa7948242a57107ca7ab12fd2f8
 	GIT_TAG llvmorg-19.1.3
 	SOURCE_SUBDIR llvm
 	CMAKE_CACHE_ARGS
@@ -40,58 +25,6 @@ ExternalProject_Add(
 		-DLLVM_DEFAULT_TARGET_TRIPLE:STRING=arm-linux-gnueabihf
 		-DLLVM_ENABLE_RUNTIMES:STRING=libunwind libcxxabi libcxx
 		-DLLVM_RUNTIME_TARGETS:STRING=arm-linux-gnueabihf
-		#-DLLVM_ENABLE_RUNTIMES:STRING=
 		-DLLVM_INSTALL_TOOLCHAIN_ONLY:BOOL=ON
 		-DCPACK_GENERATOR:STRING=TGZ
-		# no effect: -DBOOTSTRAP_GCC_INSTALL_PREFIX:STRING=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target
-		
-		#-DLIBCXXABI_USE_LLVM_UNWINDER:BOOL=ON
-		#-DDEFAULT_SYSROOT:PATH=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target
-		#-DDEFAULT_SYSROOT:PATH=
-		#-DLIBCXX_CXX_ABI:STRING="libstdc++"
-		#-DLIBCXX_CXX_ABI_INCLUDE_PATHS:PATHS=:~/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/lib/gcc/arm-gcc49-linux-gnueabihf/4.9.4
-		#-DLIBCXX_CXX_ABI_LIBRARY_PATH:PATH
-
-		#-DBOOTSTRAP_DEFAULT_SYSROOT:PATH=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target
-		#-DBOOTSTRAP_GCC_TOOLCHAIN:
-		#--gcc-toolchain=/path/to/install-dir
-		#--sysroot=/path/to/install-dir/<gcc-triple>/libc
-		#/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/lib/gcc/arm-gcc49-linux-gnueabihf/4.9.4
-		
-		#-DBOOTSTRAP_CMAKE_CXX_FLAGS:STRING=--sysroot=/opt/ekt/dcd9275_dev --gcc-toolchain=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/arm-gcc49-linux-gnueabihf
-		#-DBOOTSTRAP_CMAKE_C_FLAGS:STRING=--sysroot=/opt/ekt/dcd9275_dev --gcc-toolchain=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/arm-gcc49-linux-gnueabihf
-
-		#-DCLANG_ENABLE_BOOTSTRAP:BOOL=ON
-		#-DBOOTSTRAP_CMAKE_INSTALL_PREFIX:PATH=${BOOTSTRAP_INSTALL_PREFIX}
-		-DBOOTSTRAP_LIBUNWIND_ENABLE_SHARED:BOOL=OFF
-		-DBOOTSTRAP_LIBCXXABI_ENABLE_SHARED:BOOL=OFF
-		-DBOOTSTRAP_LIBCXX_ENABLE_SHARED:BOOL=OFF
-		#-DBOOTSTRAP_CMAKE_BUILD_TYPE:STRING=Release
-		#-DBOOTSTRAP_CLANG_DEFAULT_CXX_STDLIB:STRING=libc++
-		#-DBOOTSTRAP_CLANG_DEFAULT_RTLIB:STRING=compiler-rt
-		#-DBOOTSTRAP_LIBCXX_USE_COMPILER_RT:BOOL=ON
-		#-DBOOTSTRAP_LIBCXXABI_USE_COMPILER_RT:BOOL=ON
-		#-DCLANG_BOOTSTRAP_TARGETS:STRING=install-libunwind install-libcxxabi install-libcxx install-clang install-clang-headers
-	
-		#-DC_INCLUDE_DIRS:STRING=
-		#-DLIBUNWIND_ENABLE_SHARED:BOOL=OFF
-		#-DLIBCXX_ENABLE_SHARED:BOOL=OFF
-		#-DLIBCXXABI_ENABLE_SHARED:BOOL=OFF
-		#-DLLVM_ENABLE_RTTI:BOOL=ON
-		#-DLLVM_ENABLE_EH:BOOL=ON
-
-		#-DCMAKE_CXX_FLAGS:STRING=-O3 -fno-pic
-		#-DCMAKE_C_FLAGS:STRING=-O3 -fno-pic
-		#-DLLVM_ENABLE_RUNTIMES:STRING=
-		#-DBUILD_SHARED_LIBS:BOOL=OFF
-		#-DCLANG_DEFAULT_CXX_STDLIB = libc++
-		#-DLLVM_ENABLE_LIBCXX:BOOL=OFF
-		#-DLIBCXX_ENABLE_STATIC:BOOL=ON
-		#-DBUILD_SHARED_LIBS=OFF
-		#-DCLANG_DEFAULT_RTLIB = compiler-rt
-		#-DLIBUNWIND_ENABLE_SHARED:BOOL=OFF
-		#-G Ninja 
-		#-DCMAKE_INSTALL_PREFIX=$PATH_CLANG 
-	#DEPENDS
-	#	ZLIB
 )
