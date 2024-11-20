@@ -5,6 +5,7 @@ project(clang_superbuild LANGUAGES)
 include(ExternalProject)
 
 set(INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install)
+set(BOOTSTRAP_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install_hisi)
 
 set(COMMON_CMAKE_CACHE_ARGS
 	-DCMAKE_BUILD_TYPE:STRING=Release
@@ -41,8 +42,8 @@ ExternalProject_Add(
 		-DLLVM_RUNTIME_TARGETS:STRING=arm-linux-gnueabihf
 		#-DLLVM_ENABLE_RUNTIMES:STRING=
 		-DLLVM_INSTALL_TOOLCHAIN_ONLY:BOOL=ON
-
 		-DCPACK_GENERATOR:STRING=TGZ
+		# no effect: -DBOOTSTRAP_GCC_INSTALL_PREFIX:STRING=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target
 		
 		#-DLIBCXXABI_USE_LLVM_UNWINDER:BOOL=ON
 		#-DDEFAULT_SYSROOT:PATH=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target
@@ -57,15 +58,14 @@ ExternalProject_Add(
 		#--sysroot=/path/to/install-dir/<gcc-triple>/libc
 		#/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/lib/gcc/arm-gcc49-linux-gnueabihf/4.9.4
 		
-		#-DBOOTSTRAP_CMAKE_CXX_FLAGS:STRING=--sysroot=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target --gcc-toolchain=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain
-		#-DBOOTSTRAP_CMAKE_C_FLAGS:STRING=--sysroot=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/target --gcc-toolchain=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain
-
-
-		#-DBOOTSTRAP_LIBUNWIND_ENABLE_SHARED:BOOL=OFF
-		#-DBOOTSTRAP_LIBCXXABI_ENABLE_SHARED:BOOL=OFF
-		#-DBOOTSTRAP_LIBCXX_ENABLE_SHARED:BOOL=OFF
+		#-DBOOTSTRAP_CMAKE_CXX_FLAGS:STRING=--sysroot=/opt/ekt/dcd9275_dev --gcc-toolchain=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/arm-gcc49-linux-gnueabihf
+		#-DBOOTSTRAP_CMAKE_C_FLAGS:STRING=--sysroot=/opt/ekt/dcd9275_dev --gcc-toolchain=/home/jpabst/.gu/platforms/hi3796mv200_vmx/gcc_toolchain/arm-gcc49-linux-gnueabihf
 
 		#-DCLANG_ENABLE_BOOTSTRAP:BOOL=ON
+		#-DBOOTSTRAP_CMAKE_INSTALL_PREFIX:PATH=${BOOTSTRAP_INSTALL_PREFIX}
+		-DBOOTSTRAP_LIBUNWIND_ENABLE_SHARED:BOOL=OFF
+		-DBOOTSTRAP_LIBCXXABI_ENABLE_SHARED:BOOL=OFF
+		-DBOOTSTRAP_LIBCXX_ENABLE_SHARED:BOOL=OFF
 		#-DBOOTSTRAP_CMAKE_BUILD_TYPE:STRING=Release
 		#-DBOOTSTRAP_CLANG_DEFAULT_CXX_STDLIB:STRING=libc++
 		#-DBOOTSTRAP_CLANG_DEFAULT_RTLIB:STRING=compiler-rt

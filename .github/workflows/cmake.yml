@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - name: Set up system
-      run: sudo apt-get --assume-yes install ninja-build clang
+      run: sudo apt-get --assume-yes install ninja-build g++-arm-linux-gnueabihf
     - name: Checkout
       uses: actions/checkout@main
     - name: Configure
